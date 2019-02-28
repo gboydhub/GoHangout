@@ -4,6 +4,8 @@ import (
 	"context"
 	"flag"
 	"sync"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 func main() {
@@ -17,6 +19,7 @@ func main() {
 
 	gameRunning := true
 	go startGame(shutdownSource, &waitSync, &gameRunning)
+	defer sdl.Quit()
 
 	endedBy := <-shutdownSource
 

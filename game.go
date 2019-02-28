@@ -19,7 +19,6 @@ func startGame(resp chan<- string, wg *sync.WaitGroup, isRunning *bool) {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
 	}
-	defer sdl.Quit()
 
 	window, err := sdl.CreateWindow("test", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		800, 600, sdl.WINDOW_SHOWN)
@@ -36,6 +35,7 @@ func startGame(resp chan<- string, wg *sync.WaitGroup, isRunning *bool) {
 	surface.FillRect(nil, sdl.MapRGB(surface.Format, 0, 10, 20))
 	window.UpdateSurface()
 
+	//*isRunning = true
 	for *isRunning {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
